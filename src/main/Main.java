@@ -1,12 +1,36 @@
 package main;
 
-import lib.RSA;
+import java.math.BigInteger;
+import java.util.Vector;
 
+import lib.Prime;
+import lib.RSA;
 public class Main {
 
+	private static BigInteger dois = new BigInteger("2");
+	private static BigInteger um = new BigInteger("1");
+	private static BigInteger zero = new BigInteger("0");
+	
 	public static void main(String[] args) {
+
 		
-		RSA rsa = new RSA(); 		
+//	Prime p = new Prime(1281212121);
+//	System.out.println(p.getValue());
+	
+//	Prime p2 = new Prime(1282121212);
+//	System.out.println(p2.getValue());
+	
+	
+	RSA a = new RSA();
+	System.out.println("\n");
+
+	
+	
+	Vector<BigInteger> result= a.gcd(new BigInteger("120"), new BigInteger("23"));
+
+//	System.out.println(result.get(0)+" "+result.get(1)+" "+result.get(2));
+	//	System.out.println(result);
+		
 		
 	}
 
