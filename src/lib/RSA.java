@@ -53,24 +53,27 @@ public class RSA {
 		BigInteger zero = new BigInteger("0");
 		Vector<BigInteger> result = new Vector<BigInteger>();
 		
+		if(value1.subtract(value2).signum() < 0 ){
+			BigInteger aux = value1;
+			value1 = value2;
+			value2 = value1;
+		}
+		
 		if(value2.equals(zero)){
-			result.add(new BigInteger("1")); // x 
-			result.add(zero);	    // y    
-			result.add(value1);    // d   			
+			result.add(new BigInteger("1"));  
+			result.add(zero);	   			  
+			result.add(value1);    			  
 			return result;
 		}
 		
-		//falta colocar para retornar o valor de e no vetor
 		Vector<BigInteger> d = gcd(value2,value1.remainder(value2));
 		result.add(d.get(1));
 		BigInteger y = d.get(0);
 		BigInteger divisao = value1.divide(value2);
-		divisao = divisao.multiply(d.get(0));
+		divisao = divisao.multiply(d.get(1));
 		y = y.subtract(divisao);
 		result.add(y);
 		result.add(d.get(2));
-		
-		System.out.println(result.get(0)+" "+result.get(1)+" "+result.get(2));
 		
 		return result;
 	}

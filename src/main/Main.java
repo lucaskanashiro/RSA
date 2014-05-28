@@ -19,18 +19,13 @@ public class Main {
 	
 //	Prime p2 = new Prime(1282121212);
 //	System.out.println(p2.getValue());
-	
-	
+			
 	RSA a = new RSA();
 	System.out.println("\n");
-
-	
 	
 	Vector<BigInteger> result= a.gcd(new BigInteger("120"), new BigInteger("23"));
 
-//	System.out.println(result.get(0)+" "+result.get(1)+" "+result.get(2));
-	//	System.out.println(result);
-		
+	
 		
 	}
 

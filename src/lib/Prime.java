@@ -13,6 +13,7 @@ public class Prime {
 		this.value = new BigInteger("0");
 		BigInteger result= new BigInteger(""+bits);
 		
+			
 		while(true){
 			this.value= result.multiply(new BigInteger("6"));
 			
@@ -27,9 +28,9 @@ public class Prime {
 			if(FermatTest())
 				return this.value;
 		}
-		
 	}
 		
+	
 	public boolean FermatTest(){
 		
 		if(this.value.equals(new BigInteger("0")))
