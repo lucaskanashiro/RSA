@@ -25,12 +25,16 @@ public class Main {
 	
 //	Vector<BigInteger> result= a.gcd(new BigInteger("120"), new BigInteger("23"));
 
-	
-	PseudoRandomGenerator generator = new PseudoRandomGenerator("1234567890");
-	
-	for(int i=0; i<10; i++)
-		generator.generate();
+		Prime prime = new Prime();
+		//PseudoRandomGenerator generator = new PseudoRandomGenerator("1234567890");
 		
+		//for(int i=0; i<10; i++){
+			//BigInteger number = generator.generate();
+			//if(prime.FermatTest(number))
+				//System.out.println(number);
+		//}
+		
+		System.out.println(prime.generatePrime("987654321"));
 	}
 
 }

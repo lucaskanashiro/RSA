@@ -21,7 +21,7 @@ public class PseudoRandomGenerator {
 		this.seed = this.seed.multiply(this.seed);
 		this.seed = this.seed.mod(this.m);
 		
-		System.out.println("Resultado: " + this.seed);
+		//System.out.println("Resultado: " + this.seed);
 		
 		return this.seed;
 	}
