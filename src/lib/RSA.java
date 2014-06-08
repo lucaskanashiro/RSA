@@ -56,7 +56,7 @@ public class RSA {
 		if(value1.subtract(value2).signum() < 0 ){
 			BigInteger aux = value1;
 			value1 = value2;
-			value2 = value1;
+			value2 = aux;
 		}
 		
 		if(value2.equals(zero)){

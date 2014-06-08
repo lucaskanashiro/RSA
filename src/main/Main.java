@@ -23,8 +23,17 @@ public class Main {
 	RSA a = new RSA();
 	System.out.println("\n");
 	
-	Vector<BigInteger> result= a.gcd(new BigInteger("120"), new BigInteger("23"));
+	Vector<BigInteger> result= a.gcd(new BigInteger("1008"), new BigInteger("71"));
 
+//	System.out.println(result.get(0)+" "+result.get(1)+" "+result.get(2));
+	
+	
+	for(int i=0;i<50;i++){
+		
+		System.out.println( (6*i)+1);
+		System.out.println((6*i)-1);
+		
+	}
 	
 		
 	}
