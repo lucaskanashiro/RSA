@@ -1,4 +1,4 @@
-package lib;
+package src.lib;
 
 import java.math.BigInteger;
 import java.util.Vector;
