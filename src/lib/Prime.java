@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Prime {
+<<<<<<< HEAD
 
 	BigInteger zero = new BigInteger("0");
 	BigInteger um = new BigInteger("1");
@@ -127,6 +128,19 @@ public class Prime {
 		
 	public BigInteger getValue() {
 		return this.value;
-	}
+=======
 	
+	public BigInteger generatePrime(String stringSeed){
+		
+		PseudoRandomGenerator generator = new PseudoRandomGenerator(stringSeed);
+		
+		BigInteger number = generator.generate();
+		
+		if(number.isProbablePrime(1))
+			return number;
+		else
+			return generatePrime(stringSeed + "1");
+>>>>>>> af7d21fce427b9789b2ea5f805cc3e515a212736
+	}
+		
 }
