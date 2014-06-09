@@ -9,7 +9,7 @@ public class RSA {
 	}
 
 	public Prime generateKey(int bits) {
-		return new Prime();
+		return new Prime(bits);
 	}
 
 	public BigInteger generateCypherKey() {
