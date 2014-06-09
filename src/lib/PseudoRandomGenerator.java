@@ -11,8 +11,8 @@ public class PseudoRandomGenerator {
 	public PseudoRandomGenerator(String stringSeed){
 		this.seed = new BigInteger(stringSeed);
 		
-		BigInteger p = new BigInteger("16683587");
-		BigInteger q = new BigInteger("16683619");
+		BigInteger p = new BigInteger("23895371");
+		BigInteger q = new BigInteger("23895379");
 		
 		this.m = p.multiply(q);
 	}

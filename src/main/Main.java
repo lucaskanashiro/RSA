@@ -35,6 +35,7 @@ public class Main {
 		//}
 		
 		System.out.println(prime.generatePrime("987654321"));
+		System.out.println(prime.generatePrime("123456789"));
 	}
 
 }
