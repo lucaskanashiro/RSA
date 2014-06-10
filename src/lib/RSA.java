@@ -5,40 +5,61 @@ import java.util.Vector;
 
 public class RSA {
 
+	private BigInteger n,privateKey,publicKey;
+
 	public RSA() {
 	}
 
-	public Prime generateKey(int bits) {
-		return new Prime(bits);
-	}
 
-	public BigInteger generateCypherKey() {
-		return new BigInteger("232938293829");
+	public String encrypt(String message){
+		Prime p = new Prime();
+		BigInteger s =  p.modPow(new BigInteger(message.getBytes()), this.publicKey, this.n);
+		return s.toString();	
 	}
-
-	public BigInteger generateDecypherKey() {
-		return new BigInteger("232938293829");
+	
+	public BigInteger encrypt(BigInteger message){
+		Prime p= new Prime();
+		return p.modPow(message, this.publicKey, this.n) ; 
 	}
-
-	public BigInteger cypher() {
-		return new BigInteger("232938293829");
+	
+	public String decryption(String message){
+		Prime p= new Prime();
+		return new String(p.modPow(new BigInteger(message), this.privateKey, this.n).toByteArray());
 	}
-
-	public BigInteger decypher() {
-		return new BigInteger("232938293829");
+	
+	public BigInteger decrypt(BigInteger message){
+		Prime p = new Prime();
+		return p.modPow(message, this.privateKey, this.n);
 	}
-
 	
 	
+	public void generate(){
+		
+		Prime p1 = new Prime("182349712403987210471");
+		Prime p2 = new Prime("947309178243017402140");
+		
+		BigInteger totiente = totiente(p1.getValue(), p2.getValue());
+		
+		this.n = (p1.getValue().multiply(p2.value));
+		
+		this.publicKey = e(totiente);
+		this.privateKey =(modInverse(this.publicKey,totiente));
+	}
+	
+	
+	public BigInteger modInverse(BigInteger publicKey,BigInteger totiente){
+		Vector<BigInteger> result = gcd(publicKey, totiente);
+		return result.get(1);
+	}
+		
 	public BigInteger e(BigInteger totiente) {
-		BigInteger aux = totiente;
-		while (!aux.equals(new BigInteger("1"))) {
-			if (gcd(aux, totiente).equals(new BigInteger("1"))) {
-				return aux;
-			}
-			aux.subtract(new BigInteger("1"));
+		BigInteger e = new BigInteger("3");
+				
+		while(totiente.gcd(e).intValue() > 1)
+		{
+			e = e.add(new BigInteger("2"));			
 		}
-		return aux;
+		return e;
 	}
 
 	public BigInteger totiente(BigInteger p, BigInteger q) {
@@ -76,5 +97,19 @@ public class RSA {
 		
 		return result;
 	}
+
+	public BigInteger getPrivateKey() {
+		return this.privateKey;
+	}
+
+	public BigInteger getN() {
+		return this.n;
+	}
+	
+	public BigInteger getPublicKey(){
+		return this.publicKey;
+	}
+	
+	
 
 }

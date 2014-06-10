@@ -14,29 +14,35 @@ public class Prime {
 
 	BigInteger value;
 	
-	public Prime(int bits) {
-		//this.value = generatePrime(bits);	
+	public Prime(){
+		
 	}
 	
-	private BigInteger generatePrime(int bits){
+	public Prime(String bits) {
+		this.value = generatePrime(bits);	
+	}
+	
+	
+	private BigInteger generatePrime (String bits){
+			
 		this.value = new BigInteger("0");
-		BigInteger result= new BigInteger(""+bits);
+		BigInteger result= new PseudoRandomGenerator(bits).generate();
 		
+			
 		while(true){
 			this.value= result.multiply(new BigInteger("6"));
 			this.value = this.value.subtract(new BigInteger("1"));
-			System.out.println("V1 "+this.value);
-			if(Millen_Rabin(this.value))
+			if(Miller_Rabin(this.value))
 				return this.value;
 			this.value = this.value.add(new BigInteger("2"));
-			System.out.println("V2 "+this.value);
-			if(Millen_Rabin(this.value))
+			if(Miller_Rabin(this.value))
 				return this.value;
 		}
+		
 	}
 		
 	
-	public boolean Millen_Rabin (BigInteger n){
+	public boolean Miller_Rabin (BigInteger n){
 	     if(n.equals(dois) || n.equals(tres) || n.equals(cinco) ){
 	    	 return true;	    	 
 	     }
@@ -107,7 +113,32 @@ public class Prime {
 		return b1.remainder(n);
 	}
 	
+
+	public BigInteger modPow(BigInteger a , BigInteger b , BigInteger n)
+	{
+		BigInteger result = um;
+		BigInteger temp = a;
+		BigInteger temp_exp= b;
+		
+		while(!temp_exp.equals(zero))
+		{
+			
+			if(!temp_exp.remainder(dois).equals(zero) )
+			{	
+				result= (result.remainder(n).multiply(temp.remainder(n)).remainder(n)); 
+			}	
+			temp= temp.remainder(n).multiply(temp.remainder(n)).remainder(n);
+			temp_exp = temp_exp.divide(dois);
+		}
+		
+		return result;
+	}
 	
+	
+	
+	
+	
+	/*
 	public BigInteger modPow(BigInteger a,BigInteger b , BigInteger n){
 		if(b.equals(zero)){
 			return um;			
@@ -125,20 +156,9 @@ public class Prime {
 		return modProd(a, modPow(a, b.subtract(um), n), n);		
 	}
 		
+	*/
+	
 	public BigInteger getValue() {
 		return this.value;
-	}
-	
-	public BigInteger generatePrime(String stringSeed){
-		
-		PseudoRandomGenerator generator = new PseudoRandomGenerator(stringSeed);
-		
-		BigInteger number = generator.generate();
-		
-		if(number.isProbablePrime(1))
-			return number;
-		else
-			return generatePrime(stringSeed + "1");
-	}
-		
+	}		
 }
