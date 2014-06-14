@@ -10,21 +10,21 @@ public class RSA {
 	private MathUtil util;
 	private Generator generator;
 	
-	public RSA(int numberOfBits){
+	public RSA(int numberOfBytes){
 		this.util = new MathUtil();
 		this.generator = new Generator();
-		this.generateKeys(numberOfBits);
+		this.generateKeys(numberOfBytes);
 	}
 	
-	private void generateKeys(int numberOfBits) {
-		BigInteger p = this.generator.generatePrimeNumber(numberOfBits);
-		BigInteger q = this.generator.generatePrimeNumber(numberOfBits);
+	private void generateKeys(int numberOfDigits) {
+		BigInteger p = this.generator.generatePrimeNumber(numberOfDigits);
+		BigInteger q = this.generator.generatePrimeNumber(numberOfDigits);
 		
 		this.mod = p.multiply(q);
 		
 		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
 		
-		this.publicKey = this.generator.generatePrimeNumber(numberOfBits);
+		this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
 		
 		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
             this.publicKey.add(BigInteger.ONE); 
