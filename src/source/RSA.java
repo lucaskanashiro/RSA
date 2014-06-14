@@ -30,6 +30,9 @@ public class RSA {
             this.publicKey.add(BigInteger.ONE); 
 		
 		this.privateKey = this.util.inverseMod(phi, this.publicKey);
+		
+		System.out.println("Public KEY="+this.publicKey+"\nPrivate Key= "+this.privateKey+"\nMOD= "+this.mod);
+		
 	}
 	
 	public String encrypt(String message){

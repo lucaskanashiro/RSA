@@ -2,14 +2,13 @@ package main;
 
 import java.math.BigInteger;
 
+import com.sun.org.apache.bcel.internal.util.ByteSequence;
+
 import source.ReadRandom;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ReadRandom rr = new ReadRandom();
-		
-		System.out.println(rr.Random());
 		
 		
 		/*

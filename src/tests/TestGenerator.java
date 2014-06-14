@@ -39,4 +39,6 @@ public class TestGenerator {
 		assertEquals(new BigInteger("1130262615100073"), this.generator.generatePrimeNumber(new BigInteger("1234567890")));
 		assertEquals(new BigInteger("551780131038473"), this.generator.generatePrimeNumber(new BigInteger("1234567890987654321852963741")));
 	}
+	
+	
 }
