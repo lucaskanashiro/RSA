@@ -1,4 +1,4 @@
-package source;
+package src.source;
 
 import java.math.BigInteger;
 
@@ -17,14 +17,14 @@ public class RSA {
 	}
 	
 	private void generateKeys(int numberOfBits) {
-		BigInteger p = this.generator.generatePrimeNumber(new BigInteger("1234567890123456789"));
-		BigInteger q = this.generator.generatePrimeNumber(new BigInteger("9876543234567876543456"));
+		BigInteger p = this.generator.generatePrimeNumber(numberOfBits);
+		BigInteger q = this.generator.generatePrimeNumber(numberOfBits);
 		
 		this.mod = p.multiply(q);
 		
 		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
 		
-		this.publicKey = this.generator.generatePrimeNumber(new BigInteger("67899432345678765432123456789"));
+		this.publicKey = this.generator.generatePrimeNumber(numberOfBits);
 		
 		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
             this.publicKey.add(BigInteger.ONE); 

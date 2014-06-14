@@ -2,15 +2,15 @@ package main;
 
 import java.math.BigInteger;
 
-import com.sun.org.apache.bcel.internal.util.ByteSequence;
+import source.Generator;
 
-import source.ReadRandom;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		
+		Generator g = new Generator();
+		System.out.println(g.generatePrimeNumber(100));
 		/*
 		RSA rsa = new RSA();
 

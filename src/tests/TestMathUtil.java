@@ -1,4 +1,4 @@
-package tests;
+package src.tests;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import org.junit.Before;
 import org.junit.Test;
 
-import source.MathUtil;
+import src.source.MathUtil;
 
 public class TestMathUtil {
 

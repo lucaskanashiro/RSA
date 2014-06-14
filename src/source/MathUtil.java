@@ -1,8 +1,8 @@
-package source;
+package src.source;
 
 import java.math.BigInteger;
 
-import source.Constant;
+import src.source.Constant;
 
 public class MathUtil {
 
