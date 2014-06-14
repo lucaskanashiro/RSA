@@ -2,8 +2,7 @@ package main;
 
 import java.math.BigInteger;
 
-import lib.RSA;
-import lib.ReadRandom;
+import source.ReadRandom;
 
 public class Main {
 
