@@ -2,20 +2,21 @@ package lib;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Prime {
 
-	BigInteger zero = new BigInteger("0");
-	BigInteger um = new BigInteger("1");
-	BigInteger dois = new BigInteger("2");
-	BigInteger tres = new BigInteger("3");
-    BigInteger cinco = new BigInteger("5");
-	BigInteger dez = new BigInteger("10");
+	private final BigInteger zero = new BigInteger("0");
+	private final BigInteger um = new BigInteger("1");
+	private final BigInteger dois = new BigInteger("2");
+	private final BigInteger tres = new BigInteger("3");
+	private final BigInteger cinco = new BigInteger("5");
+	private final BigInteger dez = new BigInteger("10");
 
-	BigInteger value;
+	private BigInteger value;
 	
 	public Prime(){
-		
+		this.value = zero;
 	}
 	
 	public Prime(String bits) {
@@ -24,91 +25,105 @@ public class Prime {
 	
 	
 	private BigInteger generatePrime (String bits){
-			
-		this.value = new BigInteger("0");
-		BigInteger result= new PseudoRandomGenerator(bits).generate();
+		BigInteger result = zero;
+		BigInteger value = zero;
 		
-			
+		//gerar um numero aleatorio passando numero de bits
+		result= new PseudoRandomGenerator(bits).generate();
+					
 		while(true){
-			this.value= result.multiply(new BigInteger("6"));
-			this.value = this.value.subtract(new BigInteger("1"));
-			if(Miller_Rabin(this.value))
-				return this.value;
-			this.value = this.value.add(new BigInteger("2"));
-			if(Miller_Rabin(this.value))
-				return this.value;
+			// 6k +1
+			value = result.multiply(new BigInteger("6"));
+			value = value.subtract(new BigInteger("1"));
+			if(Miller_Rabin(value))
+				return value;
+			//6k - 1 
+			value = value.add(new BigInteger("2"));
+			if(Miller_Rabin(value))
+				return value;
 		}
 		
 	}
 		
 	
+	
 	public boolean Miller_Rabin (BigInteger n){
-	     if(n.equals(dois) || n.equals(tres) || n.equals(cinco) ){
-	    	 return true;	    	 
-	     }
+	    BigInteger base = new BigInteger("2");
+	    BigInteger nsub1 = n.subtract(um);
+		BigInteger s = um;
+		BigInteger d = dois ;
+		
+		boolean test1 = false;
+		boolean test2 = false;
+		
+		
+		while(d.remainder(dois).equals(zero))
+		{
+			base = base.shiftLeft(1);
+			s = s.add(um);
+			d = nsub1.divide(base);
+		}
+		
+		System.out.println("[[BASE = "+base+
+						   "\nS =" + s+
+						   "\nD ="+d+"]]");
+		
+		
+		while(true){
+			BigInteger a = new PseudoRandomGenerator("23").generate();
+						
+			if(modPow(a, d, n).equals(um)){
+				test1 = true;
+			}
 			
-	     if(n.remainder(dois).equals(zero) || n.remainder(tres).equals(zero) || n.remainder(cinco).equals(zero) ){
-	    	 return false;
-	     }
-	     
-	     if(n.subtract(new BigInteger("25")).signum() == -1 ){
-	    	 return true;	    	 
-	     }
-	      
-	     ArrayList<BigInteger> a = new ArrayList<BigInteger>();  
-	     a.add(dois);
-	     a.add(tres);
-	     a.add(cinco);
-	     a.add(new BigInteger("7"));
-	     a.add(new BigInteger("11"));
-	     a.add(new BigInteger("13"));
-	     a.add(new BigInteger("17"));
-	     a.add(new BigInteger("19"));
-	     
-	     BigInteger b = n.subtract(um);
-	     BigInteger d,x;
-	     d = b;
-	     
-	     for(;b.remainder(dois).equals(zero);b = b.divide(dois));
-	     
-	     for(int i=0; i<a.size();i++){
-	    	 x = modPow( a.get(i)  , b, n);
-  
-	    	 if(x.equals(um) || x.equals(n.subtract(um))){
-	    		 continue;	    		 
-	    	 }
-	     
-	    	 for(boolean t = true; (t==true)  && ( d.subtract(n.subtract(um)).signum() == -1)  ;d = d.multiply(dois))
-	    	 {
-		    	 System.out.println("3");
-	    		 x = modPow(x, x, n);
-	    		 if(x.equals(n.subtract(um))){
-	    			 t = false;
-	    		 }
-	    		 if(t) return false;
-	    	 }
-	     }
-	     return true;
+			if(modPow(a,d,n).equals(nsub1)){
+				test2 = true;
+			}
+			
+			if(test1 && test2){
+				return false;
+			}
+			
+			System.out.println("\nA= "+a+"\nD="+d+"\nN= "+n);
+			
+			BigInteger contador;
+			for(contador = um;!contador.subtract(base).equals(zero);contador = contador.shiftLeft(1))
+			{
+				System.out.println("Contador="+contador+"\nBASE="+base);
+				if(modPow(a,contador.multiply(d),n).equals(nsub1))
+				{
+					test2 = true;						
+					break;
+				}
+			}
+			if(test1 && test2) return false;
+			if((test1 && !test2) || (!test1 && test2))return true;
+		}
+		
 	}
+		
+	
+	
+	
 	
 	public BigInteger modProd(BigInteger a,BigInteger b , BigInteger n){
 
-		if(b.equals(zero)){
+		if(b.equals(zero) || a.equals(zero)){
 			return zero;			
 		}
-		
+		if(a.equals(um) ){
+			return b.remainder(n);
+		} 
 		if(b.equals(um)){
 			return a.remainder(n);
 		}
-
-		BigInteger b1,n1,b2;
-	    n1 = zero;
-		b1 = b.remainder(dez);
-		b2 = b.subtract(b1).divide(new BigInteger("10"));
-		b1 = modProd(a, b2, n);
-		b1.multiply(dez);
-		b1.add(b2);
-		b1.multiply(a);
+		
+		BigInteger b1,b2;
+		
+		b1 = a.remainder(n);
+		b2 = b.remainder(n);
+		
+		b1 = b1.multiply(b2);
 		
 		return b1.remainder(n);
 	}
@@ -122,7 +137,6 @@ public class Prime {
 		
 		while(!temp_exp.equals(zero))
 		{
-			
 			if(!temp_exp.remainder(dois).equals(zero) )
 			{	
 				result= (result.remainder(n).multiply(temp.remainder(n)).remainder(n)); 
@@ -135,29 +149,38 @@ public class Prime {
 	}
 	
 	
-	
-	
-	
-	/*
-	public BigInteger modPow(BigInteger a,BigInteger b , BigInteger n){
-		if(b.equals(zero)){
-			return um;			
+
+	public Vector<BigInteger> gcd(BigInteger value1, BigInteger value2) {
+		BigInteger zero = new BigInteger("0");
+		Vector<BigInteger> result = new Vector<BigInteger>();
+		
+		if(value1.subtract(value2).signum() < 0 ){
+			BigInteger aux = value1;
+			value1 = value2;
+			value2 = aux;
 		}
 		
-		if(b.equals(um)){
-			return a.remainder(n);
+		if(value2.equals(zero)){
+			result.add(new BigInteger("1"));  
+			result.add(zero);	   			  
+			result.add(value1);    			  
+			return result;
 		}
 		
-		if(b.remainder(dois).equals(zero)){
-			BigInteger c = modPow(a, b.divide(dois), n);
-			return modProd(c, c, n);		
-		}
+		Vector<BigInteger> d = gcd(value2,value1.mod(value2));
+		result.add(d.get(1));
+		BigInteger y = d.get(0);
+		BigInteger divisao = value1.divide(value2);
+		divisao = divisao.multiply(d.get(1));
+		y = y.subtract(divisao);
+		result.add(y);
+		result.add(d.get(2));
 		
-		return modProd(a, modPow(a, b.subtract(um), n), n);		
+		return result;
 	}
-		
-	*/
+
 	
+		
 	public BigInteger getValue() {
 		return this.value;
 	}		

@@ -6,7 +6,7 @@ import java.util.Vector;
 public class RSA {
 
 	private BigInteger n,privateKey,publicKey;
-
+	private Prime p;
 	public RSA() {
 	}
 
@@ -24,7 +24,7 @@ public class RSA {
 	
 	public String decryption(String message){
 		Prime p= new Prime();
-		return new String(p.modPow(new BigInteger(message), this.privateKey, this.n).toByteArray());
+		return new String((p.modPow(new BigInteger(message), this.privateKey, this.n)).toByteArray());
 	}
 	
 	public BigInteger decrypt(BigInteger message){
@@ -35,30 +35,45 @@ public class RSA {
 	
 	public void generate(){
 		
-		Prime p1 = new Prime("182349712403987210471");
-		Prime p2 = new Prime("947309178243017402140");
+		Prime p = new Prime("182349712403987210471");
+		Prime q = new Prime("947309178243017402140");
 		
-		BigInteger totiente = totiente(p1.getValue(), p2.getValue());
+		System.out.println("P = "+p.getValue());
+		System.out.println("Q = "+q.getValue());
 		
-		this.n = (p1.getValue().multiply(p2.value));
+		BigInteger totiente = totiente(p.getValue(), q.getValue());
+		
+		this.n = (p.getValue().multiply(q.getValue()));
+		System.out.println("n = "+this.n);
 		
 		this.publicKey = e(totiente);
+		System.out.println("totiente = "+totiente);
+		System.out.println("public key = "+this.publicKey);
 		this.privateKey =(modInverse(this.publicKey,totiente));
+		System.out.println("private key = "+this.privateKey);
 	}
 	
 	
 	public BigInteger modInverse(BigInteger publicKey,BigInteger totiente){
-		Vector<BigInteger> result = gcd(publicKey, totiente);
+		Vector<BigInteger> result = p.gcd(publicKey, totiente);
 		return result.get(1);
 	}
-		
+
 	public BigInteger e(BigInteger totiente) {
 		BigInteger e = new BigInteger("3");
-				
-		while(totiente.gcd(e).intValue() > 1)
+		BigInteger dois = new BigInteger("2");
+		
+		Vector<BigInteger> values= p.gcd(e,totiente);
+		System.out.println(values.get(0)+" "+values.get(1)+" "+values.get(2));
+		
+		
+		while(!(values.get(2).equals(new BigInteger("1"))))
 		{
-			e = e.add(new BigInteger("2"));			
+			System.out.println("OK");
+			e = e.add(dois);		
+			values = p.gcd(e,totiente);	
 		}
+		
 		return e;
 	}
 
@@ -67,35 +82,6 @@ public class RSA {
 		BigInteger v2 = q.subtract(new BigInteger("1"));
 
 		return v1.multiply(v2);
-	}
-
-	public Vector<BigInteger> gcd(BigInteger value1, BigInteger value2) {
-		BigInteger zero = new BigInteger("0");
-		Vector<BigInteger> result = new Vector<BigInteger>();
-		
-		if(value1.subtract(value2).signum() < 0 ){
-			BigInteger aux = value1;
-			value1 = value2;
-			value2 = aux;
-		}
-		
-		if(value2.equals(zero)){
-			result.add(new BigInteger("1"));  
-			result.add(zero);	   			  
-			result.add(value1);    			  
-			return result;
-		}
-		
-		Vector<BigInteger> d = gcd(value2,value1.remainder(value2));
-		result.add(d.get(1));
-		BigInteger y = d.get(0);
-		BigInteger divisao = value1.divide(value2);
-		divisao = divisao.multiply(d.get(1));
-		y = y.subtract(divisao);
-		result.add(y);
-		result.add(d.get(2));
-		
-		return result;
 	}
 
 	public BigInteger getPrivateKey() {
