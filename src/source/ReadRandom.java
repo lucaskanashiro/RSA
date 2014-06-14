@@ -6,13 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class ReadRandom {
+	
 	private File file;
 	private FileReader fr;
 	private BufferedReader io;
 	
-	public String Random(int numberOfBits){
+	public String Random(int numberOfDigits){
 		String result = "" ;
 		
 		try {
@@ -21,7 +21,7 @@ public class ReadRandom {
 		    io = new BufferedReader(fr);
 		    	    
 		    if(io.read() != 0){
-		    	for(int i=0;i<numberOfBits;i++)
+		    	for(int i=0;i<numberOfDigits;i++)
 		    		result +=io.read();
 		    }
 		    

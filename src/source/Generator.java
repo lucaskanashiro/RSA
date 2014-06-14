@@ -52,9 +52,10 @@ public class Generator {
 	     return true;
 	}
 	
-	public BigInteger generatePrimeNumber(int numberOfBits) {
+	public BigInteger generatePrimeNumber(int numberOfDigits) {
 		BigInteger value = Constant.zero;
-		BigInteger result= new BigInteger(this.reader.Random(numberOfBits));
+		String random = this.reader.Random(numberOfDigits);
+		BigInteger result= new BigInteger(random.substring(0, numberOfDigits));
 		
 		while(true){
 			value= result.multiply(Constant.six);
