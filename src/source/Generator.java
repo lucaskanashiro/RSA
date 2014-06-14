@@ -6,25 +6,13 @@ import java.util.ArrayList;
 public class Generator {
 	
 	private MathUtil util;
+	private ReadRandom reader;
 	
 	public Generator(){
 		this.util = new MathUtil();
+		this.reader = new ReadRandom();
 	}
 	
-	
-	public BigInteger generatePseudoRandomNumber(BigInteger seed) {
-		BigInteger p = new BigInteger("23895371");
-		BigInteger q = new BigInteger("23895379");
-		
-		BigInteger m = p.multiply(q);
-		
-		seed = seed.multiply(seed);
-		seed = seed.mod(m);
-		
-		return seed;
-	}	
-	
-
 	public boolean testMillerRabin(BigInteger number) {
 		if(number.equals(Constant.two) || number.equals(Constant.three) || number.equals(Constant.five) )
 	    	 return true;	    	 
@@ -64,13 +52,10 @@ public class Generator {
 	     return true;
 	}
 	
-	
-	
-	public BigInteger generatePrimeNumber(BigInteger seed) {
+	public BigInteger generatePrimeNumber(int numberOfBits) {
 		BigInteger value = Constant.zero;
-		BigInteger result= this.generatePseudoRandomNumber(seed);
+		BigInteger result= new BigInteger(this.reader.Random(numberOfBits));
 		
-			
 		while(true){
 			value= result.multiply(Constant.six);
 			value = value.subtract(Constant.one);

@@ -2,16 +2,18 @@ package src.main;
 
 import java.math.BigInteger;
 
+import src.source.Generator;
 import src.source.ReadRandom;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ReadRandom rr = new ReadRandom();
+		//ReadRandom rr = new ReadRandom();
 		
-		System.out.println(rr.Random(200));
+		//System.out.println(rr.Random(120));
 		
-		
+		Generator g = new Generator();
+		System.out.println(g.generatePrimeNumber(100));
 		/*
 		RSA rsa = new RSA();
 
