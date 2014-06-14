@@ -1,15 +1,15 @@
-package main;
+package src.main;
 
 import java.math.BigInteger;
 
-import source.ReadRandom;
+import src.source.ReadRandom;
 
 public class Main {
 
 	public static void main(String[] args) {
 		ReadRandom rr = new ReadRandom();
 		
-		System.out.println(rr.Random());
+		System.out.println(rr.Random(200));
 		
 		
 		/*
