@@ -55,7 +55,7 @@ public class Generator {
 	public BigInteger generatePrimeNumber(int numberOfDigits) {
 		BigInteger value = Constant.zero;
 		String random = this.reader.Random(numberOfDigits);
-		BigInteger result= this.pseudoRandomGenerator(random);
+		BigInteger result= this.pseudoRandomGenerator(random, numberOfDigits);
 		
 		while(true){
 			value= result.multiply(Constant.six);
@@ -72,16 +72,44 @@ public class Generator {
 	
 	}	
 	
-	private BigInteger pseudoRandomGenerator(String stringSeed){
+	public BigInteger getPrime(int seed_length) {
+        BigInteger p;
+
+        while (true) {
+            p = new BigInteger(this.reader.Random(seed_length));
+            
+            if (p.mod(Constant.four).equals(Constant.three))
+                break;
+        }
+
+        return p;
+    }
+	
+	public BigInteger getN(int seed_length, BigInteger p, BigInteger q) {
+        while (p.equals(q)) 
+            q = getPrime(seed_length);
+        
+        return p.multiply(q);
+    }
+	
+	private BigInteger pseudoRandomGenerator(String stringSeed, int seed_length){
 		BigInteger seed = new BigInteger(stringSeed);
 
-		BigInteger p = new BigInteger("12345678912345678912345678912345678912345678912345678901234567890123456789123456789012345678901234567890123637");
+		BigInteger p = new BigInteger("12345678912345678912345678912345678912345678912345678901234567890123456789123456789012345678901234567890123943");
 		BigInteger q = new BigInteger("12345678912345678912345678912345678912345678912345678901234567890123456789123456789012345678901234567890123731");
 
+		/*BigInteger p = getPrime(seed_length);
+        BigInteger q = getPrime(seed_length);
+		
+        while (seed.mod(p).equals(Constant.zero) || seed.mod(q).equals(Constant.zero)) {
+            p = getPrime(seed_length);
+            q = getPrime(seed_length);
+        }
+        
+		BigInteger m = this.getN(seed_length, p, q);*/
 		BigInteger m = p.multiply(q);
 		
-		seed = seed.multiply(seed);
-		seed = seed.mod(m);
+		seed = (seed.multiply(seed)).mod(m);
 
 		return seed;
 	}

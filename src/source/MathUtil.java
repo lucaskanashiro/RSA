@@ -40,7 +40,7 @@ public class MathUtil {
 	
 
 	public BigInteger inverseMod(BigInteger a, BigInteger b) {	
-		BigInteger[] result = this.gcdExtended(a, b);
+		/*BigInteger[] result = this.gcdExtended(a, b);
 				
 		if(a.subtract(b).signum() < 0)
 		{
@@ -49,15 +49,30 @@ public class MathUtil {
 		else
 		{
 			return result[1];
+		}*/
+		
+		BigInteger b0 = b, t, q;
+		BigInteger x0 = Constant.zero, x1 = Constant.one;
+		
+		if (b.equals(Constant.one)) return Constant.one;
+		
+		while (a.subtract(Constant.one).signum() > 0) {
+			q = a.divide(b);
+			t = b; b = a.mod(b); a = t;
+			t = x0; x0 = x1.subtract(q.multiply(x0)); x1 = t;
 		}
+		
+		if (x1.signum() < 0) x1 = x1.add(b0);
+		
+		return x1;
 	}
 		
 	public BigInteger modPow(BigInteger a , BigInteger b , BigInteger n)
 	{
-		/*if(b.compareTo(Constant.zero) == -1)
+		if(b.compareTo(Constant.zero) == -1)
 			return this.modPow(this.inverseMod(a, n), b.negate(), n);
 		if(b.equals(Constant.one))
-			return this.inverseMod(a, n);*/
+			return this.inverseMod(a, n);
 		
 		BigInteger result = Constant.one;
 		BigInteger temp = a;

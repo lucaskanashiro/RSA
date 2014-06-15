@@ -33,12 +33,12 @@ public class RSA {
 		
 		this.mod = p.multiply(q);	
 		
-		this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
+		//this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
 		
-		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
-            this.publicKey.add(BigInteger.ONE);
+		//while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
+            //this.publicKey.add(BigInteger.ONE);
 		
-		//this.publicKey = new BigInteger("65537");
+		this.publicKey = new BigInteger("65537");
 		//this.privateKey = this.publicKey.modInverse(phi);
 		
 		this.privateKey = this.util.inverseMod(this.publicKey, phi);

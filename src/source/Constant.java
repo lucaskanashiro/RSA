@@ -7,6 +7,7 @@ public class Constant {
 	public  static final BigInteger one = BigInteger.ONE;
 	public static final BigInteger two = new BigInteger("2");
 	public static final BigInteger three = new BigInteger("3");
+	public static final BigInteger four = new BigInteger("4");
 	public static final BigInteger five = new BigInteger("5");
 	public static final BigInteger six = new BigInteger("6");
 	public static final BigInteger seven = new BigInteger("7");
