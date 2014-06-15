@@ -55,7 +55,7 @@ public class Generator {
 	public BigInteger generatePrimeNumber(int numberOfDigits) {
 		BigInteger value = Constant.zero;
 		String random = this.reader.Random(numberOfDigits);
-		BigInteger result= new BigInteger(random.substring(0, numberOfDigits));
+		BigInteger result= this.pseudoRandomGenerator(random);
 		
 		while(true){
 			value= result.multiply(Constant.six);
@@ -71,4 +71,18 @@ public class Generator {
 		}
 	
 	}	
+	
+	private BigInteger pseudoRandomGenerator(String stringSeed){
+		BigInteger seed = new BigInteger(stringSeed);
+
+		BigInteger p = new BigInteger("12345678912345678912345678912345678912345678912345678901234567890123456789123456789012345678901234567890123637");
+		BigInteger q = new BigInteger("12345678912345678912345678912345678912345678912345678901234567890123456789123456789012345678901234567890123731");
+
+		BigInteger m = p.multiply(q);
+		
+		seed = seed.multiply(seed);
+		seed = seed.mod(m);
+
+		return seed;
+	}
 }

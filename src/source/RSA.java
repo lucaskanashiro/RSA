@@ -22,17 +22,26 @@ public class RSA {
 	private void generateKeys(int numberOfDigits) {
 		BigInteger p = BigInteger.probablePrime(numberOfDigits, random);
 		BigInteger q = BigInteger.probablePrime(numberOfDigits, random);
+		//BigInteger p = this.generator.generatePrimeNumber(numberOfDigits);
+		//BigInteger q = this.generator.generatePrimeNumber(numberOfDigits);
+		
+		//while(p.subtract(q).signum() == 0)
+			//q = this.generator.generatePrimeNumber(numberOfDigits);
+		
+		
 		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
 		
 		this.mod = p.multiply(q);	
 		
-	/*	this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
+		this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
 		
 		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
             this.publicKey.add(BigInteger.ONE);
-		*/
-		this.publicKey = new BigInteger("65537");
-		this.privateKey = this.publicKey.modInverse(phi);
+		
+		//this.publicKey = new BigInteger("65537");
+		//this.privateKey = this.publicKey.modInverse(phi);
+		
+		this.privateKey = this.util.inverseMod(this.publicKey, phi);
 		
 		System.out.println("p: " + p);
 		System.out.println("q: " + q);
