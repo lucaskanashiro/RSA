@@ -45,6 +45,8 @@ public class RSA {
 		System.out.println("privateKey: " + this.privateKey.toString());
 	}
 	
+	
+		
 	public BigInteger encrypt(String message){
 		BigInteger message_bytes = new BigInteger(message.getBytes());
 		return encrypt(message_bytes);

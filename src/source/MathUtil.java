@@ -44,14 +44,10 @@ public class MathUtil {
 				
 		if(a.subtract(b).signum() < 0)
 		{
-			if(result[2].signum() < 0)
-				return b.add(result[2]);
 			return result[2];
 		}
 		else
 		{
-			if(result[1].signum() < 0)
-				return b.add(result[1]);
 			return result[1];
 		}
 	}
