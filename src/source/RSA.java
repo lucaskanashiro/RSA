@@ -11,19 +11,33 @@ public class RSA {
 	
 	private MathUtil util;
 	private Generator generator;
-	private SecureRandom random = new SecureRandom();
+	private RandomPrime prime = new RandomPrime();
+	//private SecureRandom random = new SecureRandom();
+	private PRNG random;
 	
 	public RSA(int numberOfBytes){
 		this.util = new MathUtil();
 		this.generator = new Generator();
+		this.random = new PRNG(numberOfBytes);
 		this.generateKeys(numberOfBytes);
 	}
 	
 	private void generateKeys(int numberOfDigits) {
-		BigInteger p = BigInteger.probablePrime(numberOfDigits, random);
-		BigInteger q = BigInteger.probablePrime(numberOfDigits, random);
+		//BigInteger p = BigInteger.probablePrime(numberOfDigits, random);
+		//BigInteger q = BigInteger.probablePrime(numberOfDigits, random);
 		//BigInteger p = this.generator.generatePrimeNumber(numberOfDigits);
 		//BigInteger q = this.generator.generatePrimeNumber(numberOfDigits);
+		BigInteger p,q,val;
+		System.out.println("OK");
+		//while (true){
+        p = prime.getRandomPrime(random, numberOfDigits, 5);
+        q = prime.getRandomPrime(random, numberOfDigits, 5);
+
+            //val = this.util.gcd(p, q);
+            
+            //if (val.equals(BigInteger.ONE))
+                //break;
+        //}
 		
 		//while(p.subtract(q).signum() == 0)
 			//q = this.generator.generatePrimeNumber(numberOfDigits);
@@ -33,12 +47,12 @@ public class RSA {
 		
 		this.mod = p.multiply(q);	
 		
-		//this.publicKey = this.generator.generatePrimeNumber(numberOfDigits);
+		this.publicKey = prime.getRandomPrime(random, numberOfDigits, 5);
 		
-		//while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
-            //this.publicKey.add(BigInteger.ONE);
+		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
+            this.publicKey.add(BigInteger.ONE);
 		
-		this.publicKey = new BigInteger("65537");
+		//this.publicKey = new BigInteger("65537");
 		//this.privateKey = this.publicKey.modInverse(phi);
 		
 		this.privateKey = this.util.inverseMod(this.publicKey, phi);
@@ -49,6 +63,53 @@ public class RSA {
 		System.out.println("phi: "+ phi);
 		System.out.println("publicKey: " + this.publicKey);
 		System.out.println("privateKey: " + this.privateKey);
+		
+		
+		/*BigInteger p, q, val, phin;
+		
+		
+		while (true){
+            p = prime.getRandomPrime(random, numberOfDigits, 5);
+            q = prime.getRandomPrime(random, numberOfDigits, 5);
+            
+            if (q.compareTo(p) == 1)
+                val = this.util.gcd(p, q);
+            else
+                val = this.util.gcd(p, p);
+            
+            if (val.equals(BigInteger.ONE))
+                break;
+        }
+        
+        System.out.println("P: " + p);
+        System.out.println("-----------------------------------");
+        System.out.println("Q: " + q);
+        System.out.println("-----------------------------------");
+        this.mod = p.multiply(q);
+        phin = p.subtract(new BigInteger("1")).multiply(q.subtract(new BigInteger("1")));
+        
+        System.out.println("N: " + this.mod);
+        System.out.println("-----------------------------------");
+        System.out.println("PHI(N): " + phin);
+        System.out.println("-----------------------------------");
+        
+        while (true){
+            this.publicKey = prime.getRandomPrime(random, numberOfDigits, 5);
+            
+        if (publicKey.compareTo(phin) == 1)
+            val = this.util.gcd(publicKey, phin);
+        else
+            val = this.util.gcd(publicKey, phin);
+        
+        if (val.equals(BigInteger.ONE))
+            break;
+        }
+        privateKey = publicKey.modInverse(phin);
+        
+        System.out.println("E: "+ publicKey);
+        System.out.println("-----------------------------------");
+        System.out.println("D: "+ privateKey);
+        System.out.println("-----------------------------------");*/
 	}
 	
 	
