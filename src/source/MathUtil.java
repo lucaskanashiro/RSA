@@ -50,6 +50,11 @@ public class MathUtil {
 		
 	public BigInteger modPow(BigInteger a , BigInteger b , BigInteger n)
 	{
+		if(b.compareTo(Constant.zero) == -1)
+			return this.modPow(this.inverseMod(a, n), b.negate(), n);
+		if(b.equals(Constant.one))
+			return this.inverseMod(a, n);
+		
 		BigInteger result = Constant.one;
 		BigInteger temp = a;
 		BigInteger temp_exp= b;

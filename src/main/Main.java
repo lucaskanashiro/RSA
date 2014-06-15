@@ -3,40 +3,32 @@ package src.main;
 import java.math.BigInteger;
 
 import src.source.Generator;
+import src.source.RSA;
 import src.source.ReadRandom;
 
 public class Main {
 
 	public static void main(String[] args) {
-		//ReadRandom rr = new ReadRandom();
-		
-		//System.out.println(rr.Random(120));
-		
-		Generator g = new Generator();
-		System.out.println(g.generatePrimeNumber(100));
-		/*
-		RSA rsa = new RSA();
-
-		rsa.generate();
+		RSA rsa = new RSA(128);
 	
-		System.out.println("----------------------");
+		System.out.println("-----------------------------");
 				
-		String text1 = "Yellow and Black Border Collies";
+		String text1 = "1234567890";
 		
 		System.out.println("PlainText: "+text1);
-		BigInteger plainText = new BigInteger(text1.getBytes());
+		//BigInteger text = new BigInteger(text1.getBytes());
 		
-		BigInteger cyphetText= rsa.encrypt(plainText);	
+		BigInteger cyphetText= rsa.encrypt(text1);	
 		
 		System.out.println("CypherText: "+cyphetText);
 		
-		plainText = rsa.decrypt(cyphetText);
+		BigInteger plainText = rsa.decrypt(cyphetText);
 		
-		String text2 = new String(plainText.toByteArray());
+		String text2 = plainText.toString();
 		
 		System.out.println("PlainText: "+ text2);
 
-		System.out.println("-----------------------------");*/
+		System.out.println("-----------------------------");
 	}
 	
 	
