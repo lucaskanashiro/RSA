@@ -42,8 +42,11 @@ public class TestMathUtil {
 	
 	@Test
 	public void testInverseMod(){
-		assertEquals(new BigInteger("-48"), this.util.inverseMod(new BigInteger("42"), new BigInteger("2017")));
-		assertEquals(new BigInteger("-5"), this.util.inverseMod(new BigInteger("19557"), new BigInteger("13")));
+		//assertEquals(new BigInteger("-48"), this.util.inverseMod(new BigInteger("42"), new BigInteger("2017")));
+		//assertEquals(new BigInteger("-5"), this.util.inverseMod(new BigInteger("19557"), new BigInteger("13")));
+		
+		assertEquals(new BigInteger("42").modInverse(new BigInteger("2017")), this.util.inverseMod(new BigInteger("42"), new BigInteger("2017")));
+		assertEquals(new BigInteger("19557").modInverse(new BigInteger("13")), this.util.inverseMod(new BigInteger("19557"), new BigInteger("13")));
 	}
 	
 	@Test
@@ -52,6 +55,7 @@ public class TestMathUtil {
 				this.util.modPow(new BigInteger("123"), new BigInteger("987654"), new BigInteger("963258741")));
 		assertEquals(new BigInteger("15975369842").modPow(new BigInteger("7418529632145697"), new BigInteger("3571598246")),
 				this.util.modPow(new BigInteger("15975369842"), new BigInteger("7418529632145697"), new BigInteger("3571598246")));
+		
 	}
 
 }

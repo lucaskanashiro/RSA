@@ -29,7 +29,7 @@ public class TestRSA {
 		String cypherText = rsa.encrypt(teste);
 		
 		System.out.println("CYPHER = "+cypherText);
-		String decypherText = rsa.decrypt(cypherText);
+		String decypherText = rsa.decrypt(teste);
 		System.out.println("DECYPHER = "+decypherText);
 	}
 	

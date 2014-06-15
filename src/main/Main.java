@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 import source.Generator;
 import source.MathUtil;
-
+import source.RSA;
+import source.ReadRandom;
 
 public class Main {
 
@@ -45,28 +46,24 @@ public class Main {
 
 		rsa.generate();
 	
-		System.out.println("----------------------");
+		System.out.println("-----------------------------");
 				
-		String text1 = "Yellow and Black Border Collies";
+		String text1 = "1234567890";
 		
 		System.out.println("PlainText: "+text1);
-		BigInteger plainText = new BigInteger(text1.getBytes());
+		//BigInteger text = new BigInteger(text1.getBytes());
 		
-		BigInteger cyphetText= rsa.encrypt(plainText);	
+		BigInteger cyphetText= rsa.encrypt(text1);	
 		
 		System.out.println("CypherText: "+cyphetText);
 		
-		plainText = rsa.decrypt(cyphetText);
+		BigInteger plainText = rsa.decrypt(cyphetText);
 		
-		String text2 = new String(plainText.toByteArray());
+		String text2 = plainText.toString();
 		
 		System.out.println("PlainText: "+ text2);
 
 		System.out.println("-----------------------------");*/
 	}
-	
-	
-	
-	
 	
 }

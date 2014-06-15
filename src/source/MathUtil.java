@@ -41,15 +41,28 @@ public class MathUtil {
 
 	public BigInteger inverseMod(BigInteger a, BigInteger b) {	
 		BigInteger[] result = this.gcdExtended(a, b);
-		
+				
 		if(a.subtract(b).signum() < 0)
+		{
+			if(result[2].signum() < 0)
+				return b.add(result[2]);
 			return result[2];
+		}
 		else
+		{
+			if(result[1].signum() < 0)
+				return b.add(result[1]);
 			return result[1];
+		}
 	}
 		
 	public BigInteger modPow(BigInteger a , BigInteger b , BigInteger n)
 	{
+		if(b.compareTo(Constant.zero) == -1)
+			return this.modPow(this.inverseMod(a, n), b.negate(), n);
+		if(b.equals(Constant.one))
+			return this.inverseMod(a, n);
+		
 		BigInteger result = Constant.one;
 		BigInteger temp = a;
 		BigInteger temp_exp= b;
