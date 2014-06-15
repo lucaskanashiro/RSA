@@ -59,13 +59,13 @@ public class RSA {
 	}
 	
 	public BigInteger encrypt(BigInteger message_bytes) {
-		//return this.util.modPow(message_bytes, this.privateKey, this.mod);
-		return message_bytes.modPow(privateKey, mod);
+		return this.util.modPow(message_bytes, this.privateKey, this.mod);
+		//return message_bytes.modPow(privateKey, mod);
 	}
 
 	public BigInteger decrypt(BigInteger message){
-		//return this.util.modPow(message, this.publicKey, this.mod);
-		return message.modPow(publicKey, mod);
+		return this.util.modPow(message, this.publicKey, this.mod);
+		//return message.modPow(publicKey, mod);
 	}
 	
 	
