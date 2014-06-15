@@ -3,31 +3,34 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
+import java.util.Vector;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import source.MathUtil;
 import source.RSA;
 
 public class TestRSA {
 
 	private RSA rsa;
-	
+	private MathUtil util;
 	@Before
 	public void setUp() throws Exception {
-		rsa = new RSA(129); 
+		rsa = new RSA(1);
+		util= new MathUtil();
 	}
 
 	@Test
 	public void testRSA(){
-		String message = "MEU NOME";
-		String t = rsa.encrypt(message);
-		System.out.println("BIGINTEGER = "+new BigInteger(message.getBytes()));
-		System.out.println(t.toString());
-		String plainText = rsa.decrypt(t);
-		System.out.println(plainText.toString());
-		assertEquals(t,plainText);
 		
+		String teste = "macartur";
+		
+		String cypherText = rsa.encrypt(teste);
+		
+		System.out.println("CYPHER = "+cypherText);
+		String decypherText = rsa.decrypt(cypherText);
+		System.out.println("DECYPHER = "+decypherText);
 	}
 	
 	

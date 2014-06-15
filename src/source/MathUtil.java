@@ -63,7 +63,6 @@ public class MathUtil {
 			temp= temp.remainder(n).multiply(temp.remainder(n)).remainder(n);
 			temp_exp = temp_exp.divide(Constant.two);
 		}
-		
 		return result;
 	}
 
