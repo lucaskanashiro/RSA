@@ -1,11 +1,11 @@
-package main;
+package src.main;
 
 import java.math.BigInteger;
 
-import source.Generator;
-import source.MathUtil;
-import source.RSA;
-import source.ReadRandom;
+import src.source.Generator;
+import src.source.MathUtil;
+import src.source.RSA;
+import src.source.ReadRandom;
 
 public class Main {
 
@@ -27,7 +27,7 @@ public class Main {
 		AFTER DECRYPTION=142
 		DECYPHER = 
 		*/
-		MathUtil p = new MathUtil();
+		/*MathUtil p = new MathUtil();
 		
 		BigInteger e= new BigInteger("53");
 		BigInteger d;
@@ -35,35 +35,43 @@ public class Main {
 		
 		
 		System.out.println(p.inverseMod(e, mod));
-		System.out.println(e.modInverse(mod));
+		System.out.println(e.modInverse(mod));*/
 		
 		
 		
 		
 		
-		/*
-		RSA rsa = new RSA();
-
-		rsa.generate();
+		
+		RSA rsa = new RSA(512);
 	
 		System.out.println("-----------------------------");
 				
-		String text1 = "1234567890";
+		/*String text1 = "123456";
 		
-		System.out.println("PlainText: "+text1);
-		//BigInteger text = new BigInteger(text1.getBytes());
+		System.out.println("Text: "+text1);
+		BigInteger text = new BigInteger(text1.getBytes());
 		
-		BigInteger cyphetText= rsa.encrypt(text1);	
+		BigInteger cyphetText= rsa.encrypt(text);	
 		
 		System.out.println("CypherText: "+cyphetText);
 		
 		BigInteger plainText = rsa.decrypt(cyphetText);
 		
-		String text2 = plainText.toString();
+		//String text2 = plainText.toString();
 		
-		System.out.println("PlainText: "+ text2);
+		System.out.println("PlainText: "+ plainText);*/
+		
+		BigInteger message = new BigInteger("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012" +
+				"3456789012345678901234567890123456789012345678912345678901234567890123456789012345678901234567890123456789012345678901234567890" +
+				"1234567890123456789012345678901234567890123456789012345678901234567890123456789");
+	    BigInteger encrypt = rsa.encrypt(message);
+	    BigInteger decrypt = rsa.decrypt(encrypt);
+	    
+	    System.out.println("message   = " + message);
+	    System.out.println("encrpyted = " + encrypt);
+	    System.out.println("decrypted = " + decrypt);
 
-		System.out.println("-----------------------------");*/
+		System.out.println("-----------------------------");
 	}
 	
 }

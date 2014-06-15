@@ -1,4 +1,4 @@
-package tests;
+package src.tests;
 
 import static org.junit.Assert.*;
 
@@ -8,10 +8,8 @@ import java.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.org.apache.bcel.internal.util.ByteSequence;
-
-import source.MathUtil;
-import source.RSA;
+import src.source.MathUtil;
+import src.source.RSA;
 
 public class TestRSA {
 
@@ -19,14 +17,14 @@ public class TestRSA {
 	private MathUtil util;
 	@Before
 	public void setUp() throws Exception {
-		rsa = new RSA(1);
+		rsa = new RSA(112);
 		util= new MathUtil();
 	}
 
 	@Test
 	public void testRSA(){
 		
-		String message = "macartur";
+		/*String message = "kanashiro";
 		
 		BigInteger cypher = this.rsa.encrypt(message);
 		
@@ -34,12 +32,12 @@ public class TestRSA {
 		
 		BigInteger decypher = this.rsa.decrypt(cypher);
 		
-		System.out.println("DECYPHER= "+new String(decypher.toByteArray()));
+		System.out.println("DECYPHER= "+new String(decypher.toByteArray()));*/
 		
 		
 		
 		
-		String texto = "macartur";
+		String texto = "criptografia";
 		String cyphertext = "";
 		byte[] b = texto.getBytes();
 		
@@ -48,7 +46,8 @@ public class TestRSA {
 			String buffer = "";
 			buffer+=bytes;
 			BigInteger big = new BigInteger(buffer);
-			 String c=  new String(this.util.modPow( big  , new BigInteger("53"), new BigInteger("185")).toByteArray());
+			 //String c=  new String(this.util.modPow( big  , new BigInteger("53"), new BigInteger("185")).toByteArray());
+			String c = new String(big.modPow(new BigInteger("53"), new BigInteger("185")).toByteArray());
 			cyphertext += c;
 		}
 		
@@ -60,8 +59,11 @@ public class TestRSA {
 			String buffer = "";
 			buffer+=bytes;
 			BigInteger big = new BigInteger(buffer);
-			 String c=  new String(this.util.modPow( big  , new BigInteger("125"), new BigInteger("185")).toByteArray());
+			//String c=  new String(this.util.modPow( big  , new BigInteger("125"), new BigInteger("185")).toByteArray());
+			String c = new String(big.modPow(new BigInteger("125"), new BigInteger("185")).toByteArray());
+			System.out.println(c);
 			plainText += c;
+			System.out.println(plainText);
 		}
 		
 		System.out.println("PLAINTEXT ="+plainText);
