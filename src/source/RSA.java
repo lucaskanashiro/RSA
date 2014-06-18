@@ -1,5 +1,9 @@
 package src.source;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
 
 public class RSA {
@@ -39,6 +43,24 @@ public class RSA {
 		System.out.println("phi: "+ phi);
 		System.out.println("publicKey: " + this.publicKey);
 		System.out.println("privateKey: " + this.privateKey);
+		
+		try {
+	          File file = new File("publicKey.txt");
+	          BufferedWriter output = new BufferedWriter(new FileWriter(file));
+	          output.write("Public Key: \n\n" + this.publicKey.toString());
+	          output.close();
+	    } catch ( IOException e ) {
+	           e.printStackTrace();
+	    }
+		
+		try {
+	          File file = new File("privateKey.txt");
+	          BufferedWriter output = new BufferedWriter(new FileWriter(file));
+	          output.write("Private Key: \n\n" + this.privateKey.toString());
+	          output.close();
+	    } catch ( IOException e ) {
+	           e.printStackTrace();
+	    }
 	}	
 		
 	public BigInteger encrypt(String message){
