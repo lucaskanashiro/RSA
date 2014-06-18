@@ -27,11 +27,11 @@ public class RSA {
 		//BigInteger q = BigInteger.probablePrime(numberOfDigits, random);
 		//BigInteger p = this.generator.generatePrimeNumber(numberOfDigits);
 		//BigInteger q = this.generator.generatePrimeNumber(numberOfDigits);
-		BigInteger p,q,val;
-		System.out.println("OK");
+		BigInteger p,q;
+		System.out.println("Gerando chaves...");
 		//while (true){
-        p = prime.getRandomPrime(random, numberOfDigits, 5);
-        q = prime.getRandomPrime(random, numberOfDigits, 5);
+        p = this.generator.getRandomPrime(numberOfDigits, 5);
+        q = this.generator.getRandomPrime(numberOfDigits, 5);
 
             //val = this.util.gcd(p, q);
             
@@ -47,7 +47,7 @@ public class RSA {
 		
 		this.mod = p.multiply(q);	
 		
-		this.publicKey = prime.getRandomPrime(random, numberOfDigits, 5);
+		this.publicKey = this.generator.getRandomPrime(numberOfDigits, 5);
 		
 		while (this.util.gcd(phi,this.publicKey).compareTo(BigInteger.ONE) > 0 && this.publicKey.compareTo(phi) < 0 ) 
             this.publicKey.add(BigInteger.ONE);

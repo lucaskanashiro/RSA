@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("-----------------------------");
 	
 		BigInteger message = new BigInteger("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012" +
-				"34567890123");
+				"34567890123123456789012345678902345678901234567890");
 	    BigInteger encrypt = rsa.encrypt(message);
 	    BigInteger decrypt = rsa.decrypt(encrypt);
 	    
