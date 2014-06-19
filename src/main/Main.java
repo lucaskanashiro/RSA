@@ -13,14 +13,14 @@ import source.RSA;
 public class Main {
 	
 	public static void main(String[] args) {
-		if(args.length == 0){
-			useMessage();
-		}else if(args[0].equals("-genKeys")){
+		if(args[0].equals("-genKeys") && args.length == 4 ){
 			genKeys(args);			
-		} else if(args[0].equals("-encrypt")){
+		} else if(args[0].equals("-encrypt") && args.length == 4){
 			alterMessage(args,0);			
-		}else if(args[0].equals("-decrypt")){
+		}else if(args[0].equals("-decrypt") && args.length == 4){
 			alterMessage(args, 1);
+		}else{
+			useMessage();
 		}
 	}	
 	
