@@ -1,8 +1,8 @@
-package src.source;
+package source;
 
 import java.math.BigInteger;
 
-import  src.source.Constant;
+import  source.Constant;
 
 public class MathUtil {
 
@@ -40,17 +40,6 @@ public class MathUtil {
 	
 
 	public BigInteger inverseMod(BigInteger a, BigInteger b) {	
-		/*BigInteger[] result = this.gcdExtended(a, b);
-				
-		if(a.subtract(b).signum() < 0)
-		{
-			return result[2];
-		}
-		else
-		{
-			return result[1];
-		}*/
-		
 		BigInteger b0 = b, t, q;
 		BigInteger x0 = Constant.zero, x1 = Constant.one;
 		

@@ -1,4 +1,4 @@
-package src.source;
+package source;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,14 +14,19 @@ public class RSA {
 	private MathUtil util;
 	private Generator generator;
 
+	
+	public RSA(){
+		this.util = new MathUtil();
+		this.generator = new Generator();		
+	}
+	
 	public RSA(int numberOfBytes){
 		this.util = new MathUtil();
 		this.generator = new Generator();
 		this.generateKeys(numberOfBytes);
 	}
 	
-	private void generateKeys(int numberOfDigits) {
-		System.out.println("Gerando chaves...");
+	public void generateKeys(int numberOfDigits) {
 		
         BigInteger p = this.generator.getRandomPrime(numberOfDigits, 5);
         BigInteger q = this.generator.getRandomPrime(numberOfDigits, 5);
@@ -36,40 +41,32 @@ public class RSA {
             this.publicKey.add(BigInteger.ONE);
 		
 		this.privateKey = this.util.inverseMod(this.publicKey, phi);
-		
-		System.out.println("p: " + p);
-		System.out.println("q: " + q);
-		System.out.println("mod: " + this.mod);
-		System.out.println("phi: "+ phi);
-		System.out.println("publicKey: " + this.publicKey);
-		System.out.println("privateKey: " + this.privateKey);
-		
-		try {
-	          File file = new File("publicKey.txt");
-	          BufferedWriter output = new BufferedWriter(new FileWriter(file));
-	          output.write("Public Key: \n\n" + this.publicKey.toString());
-	          output.close();
-	    } catch ( IOException e ) {
-	           e.printStackTrace();
-	    }
-		
-		try {
-	          File file = new File("privateKey.txt");
-	          BufferedWriter output = new BufferedWriter(new FileWriter(file));
-	          output.write("Private Key: \n\n" + this.privateKey.toString());
-	          output.close();
-	    } catch ( IOException e ) {
-	           e.printStackTrace();
-	    }
+
 	}	
-		
-	public BigInteger encrypt(String message){
-		BigInteger message_bytes = new BigInteger(message.getBytes());
-		return encrypt(message_bytes);
+	
+	public void setPublicKey(BigInteger publicKey){
+		this.publicKey = publicKey;
+	}
+	public BigInteger getPublicKey(){
+		return this.publicKey;
 	}
 	
-	public BigInteger encrypt(BigInteger message_bytes) {
-		return this.util.modPow(message_bytes, this.privateKey, this.mod);
+	public void setPrivateKey(BigInteger privateKey){
+		this.privateKey = privateKey;
+	}
+	public BigInteger getPrivateKey(){
+		return this.privateKey;
+	}
+	public void setModulus(BigInteger modulus){
+		this.mod = modulus;
+	}
+	public BigInteger getModulusKey(){
+		return this.mod;
+	}
+	
+	
+	public BigInteger encrypt(BigInteger message) {
+		return this.util.modPow(message, this.privateKey, this.mod);
 	}
 
 	public BigInteger decrypt(BigInteger message){
