@@ -1,0 +1,50 @@
+Projeto em Grupo - Exercício de Programação 1
+
+Integrantes do Grupo: 
+  Lucas Kanashiro
+  Macartur de Sousa
+
+Requisitos do Projeto:
+
+	Gerar Numero Randomico:
+	--> Gerador Verdadeiramente aleatorio
+		Usando arquivo /dev/random 
+	--> Criar Metodo para gerar um Numero Pseudo Aleatório
+	
+	Verificar Se um Numero é Primo:
+	--> usando algoritmo de Miller Rabin
+	
+	Implementar Função de Exponenciação 
+	Modular usando Numeros BigInteger:
+		C = M^E mod P
+	
+	Usando RSA:
+	-->  Cifrar
+	-->  Decifrar
+	
+Algoritmo RSA:
+ --> Dado dois valores P e Q primos grandes e co-primos 
+	
+-Determinar n = p*q
+-Determinar PhiN = (p-1) * (q-1)
+
+- Encontrar um numero qualquer E talque :
+	1 < E < phiN e E é co-primo de PhiN
+	
+	* foi utilizado GCD de Euclides Extendido
+
+- Determinar D que é o inverso multiplicativo de E mod phiN
+
+	D*E = 1 mod PhiN
+	
+--> Temos as chaves dadas Pelos valores:
+
+	Conjunto Chave Publica = E,N;
+	Conjunto Chave Privada = D,N;
+		
+	Cifrando:
+		C = M^E mod N;
+	Decifrando:
+		M = C^D mod N;
+
+		
