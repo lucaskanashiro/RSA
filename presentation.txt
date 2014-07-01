@@ -1,50 +1,113 @@
-Projeto em Grupo - Exercício de Programação 1
 
-Integrantes do Grupo: 
-  Lucas Kanashiro
-  Macartur de Sousa
 
-Requisitos do Projeto:
+			Projeto em Grupo - Exercício de Programação 2
 
-	Gerar Numero Randomico:
-	--> Gerador Verdadeiramente aleatorio
+
+=======================================================================
+					Integrantes do Grupo
+=======================================================================
+
+	  	-	Lucas Kanashiro
+  
+  	  	-	Macartur de Sousa
+
+
+=======================================================================
+					Requisitos do Projeto
+=======================================================================
+
+	Gerar Número Randomico:
+
+	--> Gerador Verdadeiramente aleatório
 		Usando arquivo /dev/random 
+
 	--> Criar Metodo para gerar um Numero Pseudo Aleatório
 	
 	Verificar Se um Numero é Primo:
+	
 	--> usando algoritmo de Miller Rabin
 	
-	Implementar Função de Exponenciação 
+	Implementar Função de Exponenciação : 
+			
+		modProd()
+	
 	Modular usando Numeros BigInteger:
-		C = M^E mod P
+	
+		C = M ^ E mod P
 	
 	Usando RSA:
+
 	-->  Cifrar
+
 	-->  Decifrar
-	
-Algoritmo RSA:
+
+=======================================================================	
+						Passos Algoritmo RSA		
+=======================================================================
+
+
  --> Dado dois valores P e Q primos grandes e co-primos 
+
 	
--Determinar n = p*q
--Determinar PhiN = (p-1) * (q-1)
+=======================================================================
+						 Determinar N:
+=======================================================================
 
-- Encontrar um numero qualquer E talque :
-	1 < E < phiN e E é co-primo de PhiN
+
+							n = p*q
+
+
+=======================================================================
+						 Determinar PhiN
+=======================================================================
+ 
+					PhiN = (p-1) * (q-1)
+
+
+
+=======================================================================
+			 Encontrar um numero qualquer E talque 
+=======================================================================
+
+		1 < E < phiN e E é co-primo de PhiN
 	
-	* foi utilizado GCD de Euclides Extendido
+   		* foi utilizado GCD de Euclides Extendido
 
-- Determinar D que é o inverso multiplicativo de E mod phiN
 
-	D*E = 1 mod PhiN
+
+=======================================================================
+		 Determinar D que é o inverso multiplicativo de E mod phiN 
+=======================================================================
+
+						D * E = 1 mod PhiN
 	
---> Temos as chaves dadas Pelos valores:
+=======================================================================
+	 			Temos as chaves dadas Pelos valores
+=======================================================================
 
-	Conjunto Chave Publica = E,N;
-	Conjunto Chave Privada = D,N;
+	Conjunto Chave Publica = E , N;
+	Conjunto Chave Privada = D , N;
 		
 	Cifrando:
+	
 		C = M^E mod N;
+	
 	Decifrando:
+	
 		M = C^D mod N;
 
+=======================================================================
+						Executando o programa
+=======================================================================
+	To Generate Keys use :
+
+	java -jar RSA.jar -genKeys [<numberOfBits>] <publicKeyFile>.txt <privateKeyFile>.txt
+	
+	To Encrypt Text use :
+
+	java -jar RSA.jar  -encrypt <privateKeyFile>.txt <textFile>.txt <cypherText>.txt
+	
+	To Decrypt Text use :
+
+	java -jar RSA.jar  -decrypt <publicKeyFile>.txt <textFile>.txt <decypherText>.txt
 		
